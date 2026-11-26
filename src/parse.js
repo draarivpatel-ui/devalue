@@ -79,6 +79,12 @@ export function unflatten(parsed, revivers, options) {
 			invalid();
 		}
 
+		// a negative index that is not one of the sentinels above is invalid;
+		// without this it would read `values[index]` and silently yield undefined
+		if (!is_valid_array_index(index)) {
+			invalid();
+		}
+
 		if (index in hydrated) return hydrated[index];
 
 		if (index >= values.length) {
